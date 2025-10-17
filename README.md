@@ -1,8 +1,10 @@
 # Matrix Coder 🎮
 
-![Matrix Coder](https://img.shields.io/badge/Version-1.0-green) ![License](https://img.shields.io/badge/License-MIT-blue) ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
+![Matrix Coder](https://img.shields.io/badge/Version-1.0-green) ![License](https://img.shields.io/badge/License-MIT-blue) ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow) [![Play Now](https://img.shields.io/badge/Play-Live_Demo-brightgreen)](https://arturalkaim.github.io/matrix-coder/)
 
 An educational web-based programming game that teaches fundamental coding concepts through visual block-based programming in a cyberpunk Matrix-themed environment.
+
+**🎮 [Play it now at arturalkaim.github.io/matrix-coder](https://arturalkaim.github.io/matrix-coder/)**
 
 ## 🎯 Overview
 
@@ -27,7 +29,9 @@ Matrix Coder follows a "program-then-execute" model where players construct thei
 ## 🚀 Getting Started
 
 ### Play Online
-Simply open `index.html` in a modern web browser. No installation required!
+🎮 **[Play Matrix Coder Now!](https://arturalkaim.github.io/matrix-coder/)**
+
+Or download and open `index.html` in a modern web browser. No installation required!
 
 ### Local Development
 ```bash
@@ -137,9 +141,10 @@ This project is open source and available under the MIT License.
 
 ## 🔗 Links
 
-- [Play Matrix Coder](https://arturalkaim.github.io/matrix-coder/)
-- [Report Issues](https://github.com/arturalkaim/matrix-coder/issues)
-- [Game Design Document](GAME_DESIGN_DOC.md)
+- 🎮 [Play Matrix Coder Live](https://arturalkaim.github.io/matrix-coder/)
+- 💻 [GitHub Repository](https://github.com/arturalkaim/matrix-coder)
+- 🐛 [Report Issues](https://github.com/arturalkaim/matrix-coder/issues)
+- 📖 [Game Design Document](GAME_DESIGN_DOC.md)
 
 ---
 
