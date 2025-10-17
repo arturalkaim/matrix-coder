@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Coder - Learn Programming in the Matrix</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    <div class="container">
+        <header>
+            <h1 class="title glitch" data-text="MATRIX_CODER">MATRIX_CODER</h1>
+            <div class="level-info">
+                <span class="level-label">LEVEL:</span>
+                <select class="level-selector" id="levelSelector">
+                    <option value="1">01 - AWAKENING</option>
+                </select>
+                <span class="level-name" id="levelName">// AWAKENING</span>
+            </div>
+        </header>
+
+        <main class="game-container">
+            <div class="game-panel">
+                <div class="grid-container">
+                    <canvas id="gameCanvas"></canvas>
+                    <div class="grid-overlay"></div>
+                </div>
+
+                <div class="game-controls">
+                    <button class="btn btn-primary" id="runBtn">
+                        <span class="btn-text">EXECUTE</span>
+                        <span class="btn-icon">▶</span>
+                    </button>
+                    <button class="btn btn-debugger" id="stepBtn">
+                        <span class="btn-text">STEP</span>
+                        <span class="btn-icon">⏯</span>
+                    </button>
+                    <button class="btn btn-debugger" id="continueBtn" style="display: none;">
+                        <span class="btn-text">CONTINUE</span>
+                        <span class="btn-icon">⏩</span>
+                    </button>
+                    <button class="btn btn-secondary" id="resetBtn">
+                        <span class="btn-text">RESET</span>
+                        <span class="btn-icon">↺</span>
+                    </button>
+                    <button class="btn btn-secondary" id="clearBtn">
+                        <span class="btn-text">CLEAR</span>
+                        <span class="btn-icon">✕</span>
+                    </button>
+                    <button class="btn btn-secondary" id="exportBtn">
+                        <span class="btn-text">EXPORT</span>
+                        <span class="btn-icon">💾</span>
+                    </button>
+                    <button class="btn btn-secondary" id="importBtn">
+                        <span class="btn-text">IMPORT</span>
+                        <span class="btn-icon">📁</span>
+                    </button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;">
+                    <div class="speed-control">
+                        <label>SPEED:</label>
+                        <input type="range" id="speedSlider" min="1" max="10" value="5">
+                        <span id="speedValue">5</span>
+                    </div>
+                </div>
+
+                <div class="register-display">
+                    <div class="register-header">// MEMORY_REGISTERS</div>
+                    <div id="registerDisplay" class="register-values">
+                        <span class="register-item">R1: 0</span>
+                        <span class="register-item">R2: 0</span>
+                        <span class="register-item">R3: 0</span>
+                        <span class="register-item">R4: 0</span>
+                    </div>
+                </div>
+
+                <div class="console-output">
+                    <div class="console-header">// SYSTEM_OUTPUT</div>
+                    <div id="console" class="console-content"></div>
+                </div>
+            </div>
+
+            <div class="code-panel">
+                <div class="instructions-palette">
+                    <div class="palette-header">// INSTRUCTION_BLOCKS</div>
+
+                    <div class="instruction-category">
+                        <h3>MOVEMENT</h3>
+                        <div class="instruction-blocks">
+                            <div class="instruction-block movement-block" data-instruction="move" draggable="true">
+                                <span class="block-icon">→</span>
+                                <span class="block-text">MOVE</span>
+                            </div>
+                            <div class="instruction-block movement-block" data-instruction="turnLeft" draggable="true">
+                                <span class="block-icon">↺</span>
+                                <span class="block-text">TURN_LEFT</span>
+                            </div>
+                            <div class="instruction-block movement-block" data-instruction="turnRight" draggable="true">
+                                <span class="block-icon">↻</span>
+                                <span class="block-text">TURN_RIGHT</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="instruction-category">
+                        <h3>SENSORS</h3>
+                        <div class="instruction-blocks">
+                            <div class="instruction-block sensor-block" data-instruction="wallAhead" draggable="true">
+                                <span class="block-icon">▓</span>
+                                <span class="block-text">WALL_AHEAD?</span>
+                            </div>
+                            <div class="instruction-block sensor-block" data-instruction="goalAhead" draggable="true">
+                                <span class="block-icon">◎</span>
+                                <span class="block-text">GOAL_AHEAD?</span>
+                            </div>
+                            <div class="instruction-block sensor-block" data-instruction="pathClear" draggable="true">
+                                <span class="block-icon">□</span>
+                                <span class="block-text">PATH_CLEAR?</span>
+                            </div>
+                            <div class="instruction-block sensor-block constant-block" data-instruction="true" draggable="true">
+                                <span class="block-icon">✓</span>
+                                <span class="block-text">TRUE</span>
+                            </div>
+                            <div class="instruction-block sensor-block constant-block" data-instruction="false" draggable="true">
+                                <span class="block-icon">✗</span>
+                                <span class="block-text">FALSE</span>
+                            </div>
+                            <div class="instruction-block sensor-block random-block" data-instruction="randomBoolean" draggable="true">
+                                <span class="block-icon">🎲</span>
+                                <span class="block-text">RANDOM?</span>
+                            </div>
+                            <div class="instruction-block sensor-block not-block" data-instruction="not" data-structure="true" draggable="true">
+                                <span class="block-icon">¬</span>
+                                <span class="block-text">NOT</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="instruction-category">
+                        <h3>CONTROL</h3>
+                        <div class="instruction-blocks">
+                            <div class="instruction-block control-block" data-instruction="if" data-structure="true" draggable="true">
+                                <span class="block-icon">?</span>
+                                <span class="block-text">IF</span>
+                            </div>
+                            <div class="instruction-block control-block" data-instruction="ifElse" data-structure="true" draggable="true">
+                                <span class="block-icon">⚡</span>
+                                <span class="block-text">IF-ELSE</span>
+                            </div>
+                            <div class="instruction-block control-block" data-instruction="while" data-structure="true" draggable="true">
+                                <span class="block-icon">∞</span>
+                                <span class="block-text">WHILE</span>
+                            </div>
+                            <div class="instruction-block control-block" data-instruction="repeat" data-structure="true" draggable="true">
+                                <span class="block-icon">×</span>
+                                <span class="block-text">REPEAT</span>
+                                <input type="number" class="block-input" min="1" max="99" value="3" onclick="event.stopPropagation()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="instruction-category">
+                        <h3>MEMORY</h3>
+                        <div class="instruction-blocks">
+                            <div class="instruction-block memory-block" data-instruction="set" draggable="true">
+                                <span class="block-icon">←</span>
+                                <span class="block-text">SET</span>
+                                <select class="block-select register-select" onclick="event.stopPropagation()">
+                                    <option value="R1">R1</option>
+                                    <option value="R2">R2</option>
+                                    <option value="R3">R3</option>
+                                    <option value="R4">R4</option>
+                                </select>
+                                <span class="block-text">TO</span>
+                                <input type="number" class="block-input number-input" value="0" min="-99" max="99" onclick="event.stopPropagation()">
+                            </div>
+                            <div class="instruction-block memory-block" data-instruction="increment" draggable="true">
+                                <span class="block-icon">+</span>
+                                <span class="block-text">INCREMENT</span>
+                                <select class="block-select register-select" onclick="event.stopPropagation()">
+                                    <option value="R1">R1</option>
+                                    <option value="R2">R2</option>
+                                    <option value="R3">R3</option>
+                                    <option value="R4">R4</option>
+                                </select>
+                            </div>
+                            <div class="instruction-block memory-block" data-instruction="decrement" draggable="true">
+                                <span class="block-icon">−</span>
+                                <span class="block-text">DECREMENT</span>
+                                <select class="block-select register-select" onclick="event.stopPropagation()">
+                                    <option value="R1">R1</option>
+                                    <option value="R2">R2</option>
+                                    <option value="R3">R3</option>
+                                    <option value="R4">R4</option>
+                                </select>
+                            </div>
+                            <div class="instruction-block sensor-block" data-instruction="registerEquals" draggable="true">
+                                <span class="block-icon">=</span>
+                                <select class="block-select register-select" onclick="event.stopPropagation()">
+                                    <option value="R1">R1</option>
+                                    <option value="R2">R2</option>
+                                    <option value="R3">R3</option>
+                                    <option value="R4">R4</option>
+                                </select>
+                                <span class="block-text">=</span>
+                                <input type="number" class="block-input number-input" value="0" min="-99" max="99" onclick="event.stopPropagation()">
+                                <span class="block-text">?</span>
+                            </div>
+                            <div class="instruction-block sensor-block" data-instruction="registerGreater" draggable="true">
+                                <span class="block-icon">></span>
+                                <select class="block-select register-select" onclick="event.stopPropagation()">
+                                    <option value="R1">R1</option>
+                                    <option value="R2">R2</option>
+                                    <option value="R3">R3</option>
+                                    <option value="R4">R4</option>
+                                </select>
+                                <span class="block-text">></span>
+                                <input type="number" class="block-input number-input" value="0" min="-99" max="99" onclick="event.stopPropagation()">
+                                <span class="block-text">?</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="instruction-category">
+                        <h3>FUNCTIONS</h3>
+                        <div class="instruction-blocks">
+                            <div class="instruction-block function-block" data-instruction="function" data-structure="true" draggable="true">
+                                <span class="block-icon">ƒ</span>
+                                <span class="block-text">FUNCTION</span>
+                                <input type="text" class="block-input function-name" placeholder="name" maxlength="10" value="func1" onclick="event.stopPropagation()">
+                            </div>
+                            <div class="instruction-block function-block" data-instruction="call" draggable="true">
+                                <span class="block-icon">→ƒ</span>
+                                <span class="block-text">CALL</span>
+                                <input type="text" class="block-input function-call" placeholder="name" maxlength="10" value="func1" onclick="event.stopPropagation()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="function-builder">
+                    <div class="builder-header">
+                        <span class="builder-title">// FUNCTION_DEFINITIONS</span>
+                        <button class="btn-small" id="clearFunctions">CLEAR</button>
+                    </div>
+                    <div class="drop-zone function-zone" id="functionArea">
+                        <div class="drop-zone-placeholder">
+                            <span class="placeholder-icon">ƒ</span>
+                            <span class="placeholder-text">DRAG FUNCTION BLOCKS HERE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-builder">
+                    <div class="builder-header">
+                        <span class="builder-title">// PROGRAM_SEQUENCE</span>
+                        <button class="btn-small" id="clearProgram">CLEAR</button>
+                    </div>
+                    <div class="drop-zone program-zone" id="programArea">
+                        <div class="drop-zone-placeholder">
+                            <span class="placeholder-icon">⇩</span>
+                            <span class="placeholder-text">DRAG MAIN PROGRAM HERE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
